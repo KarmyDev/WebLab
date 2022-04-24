@@ -1,0 +1,165 @@
+body {
+	background-color: #34344c;
+	color: #a2a199;
+	
+	margin-left: 20px;
+}
+
+.w-div-centered {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+#win-draggable-help-modal {
+	position: absolute;
+    z-index: 9;
+    background-color: #232343;
+    text-align: left;
+    padding: 10px;
+}
+
+.win-draggable-help-modal-content {
+	max-height: 400px;
+    contain: content;
+	overflow-y: scroll;
+}
+
+#win-draggable-help-modal-drag-panel {
+	padding-top: 2px;
+    padding-bottom: 2px;
+	
+	margin-top: -10px;
+    margin-right: -10px;
+    margin-bottom: 10px;
+    margin-left: -10px;
+	
+    cursor: move;
+    z-index: 10;
+    background-color: #4242a6;
+    color: #fff;
+}
+
+.w-div-title {
+	padding-bottom: 20px;
+}
+
+.w-main-title {
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.w-main-title-2 {
+	font-size: 25px;
+	padding-left: 15px;
+}
+
+.w-main-title-3 {
+	font-size: 15px;
+	padding-left: 40px;
+}
+
+.w-div-layout {
+	display: inline-flex;
+}
+
+.w-div-layout-space {
+	padding-left: 20px;
+}
+
+h5 {
+	margin-top: 5px;
+	margin-bottom: 8px;
+}
+
+.w-textarea {
+    background-color: #2c2c55;
+	color: white;
+	
+	-moz-tab-size: 6;
+    -o-tab-size: 6;
+    tab-size: 6;
+}
+
+.w-textarea:focus {
+    outline: none !important;
+    border:1px solid #569de5;
+    box-shadow: 0 0 5px #719ECE;
+	
+}
+
+.w-code-editor {
+	height: 585px;
+    width: 300px;
+	
+    resize: none;
+}
+
+.w-code-output {
+	height: 455px;
+    width: 500px;
+	
+    resize: none;
+    contain: content;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    border: 1px solid #a2a199;
+}
+
+.w-div-action-menu {
+	height: 100px;
+	width: 500px;
+}
+
+.w-button {
+	margin-top: 10px;
+	margin-right: 5px;
+	
+	background-color: #312751;
+    color: #7682ff;
+    border: solid 1px #7682ff;
+    width: 120px;
+    height: 23px;
+    font-size: 12px;
+}
+
+.w-button:hover {
+	cursor: pointer;
+	
+	background-color: #4b3e73;
+	color: #949dff;
+    border: solid 1px #949dff;
+}
+
+/* Stolen code: */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #3b3b55;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #47476b;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5a5a8a; 
+}
