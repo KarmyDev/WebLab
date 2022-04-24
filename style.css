@@ -3,6 +3,12 @@ body {
 	color: #a2a199;
 	
 	margin-left: 20px;
+	font-family: defaultFont;
+}
+
+@font-face {
+  font-family: defaultFont;
+  src: url('fonts/OpenSans-VariableFont_wdth,wght.ttf');
 }
 
 .w-div-centered {
