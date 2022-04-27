@@ -3,10 +3,11 @@
 
 ### Latest update:
 Added stack with `psh` and `pop` instruction
-Added several math instructions (`mul` - multiply, `div` - divide, `mod` - remainder)
-
+<br>Added several math instructions (`mul` - multiply, `div` - divide, `mod` - remainder)
+<br>
 <br>[\<More about instructions here\>](https://kszlagk.github.io/WebLab/help.html)
-
+<br>
+<br>
 ### 24.04.2022's update:
 Added `get` instruction
 <br>Example ussage: `get g_pressed sys_input KeyG`
