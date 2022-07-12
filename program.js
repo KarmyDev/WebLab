@@ -168,7 +168,7 @@ function RestartShell()
 		"cpy": prog_CPY, "add": prog_ADD, "sub": prog_SUB, "siz": prog_SIZ, "sin": prog_SIN, 
 		"flp": prog_FLP, "tof": prog_TOF, "len": prog_LEN, "put": prog_PUT, "cut": prog_CUT,
 		"get": prog_GET, "psh": prog_PSH, "pop": prog_POP, "mul": prog_MUL, "div": prog_DIV,
-		"mod": prog_MOD,
+		"mod": prog_MOD, "clr": prog_CLR,
 		
 		"jmp!": prog_JMP_END, "out!": prog_OUT_NL, "siz!": prog_SIZ_NOT, "sin!": prog_SIN_NOT,
 		"end!": prog_END_EP
@@ -645,6 +645,10 @@ function prog_MOD(array)
 	}
 }
 
+function prog_CLR(array)
+{
+	FlushOutput();
+}
 
 
 
