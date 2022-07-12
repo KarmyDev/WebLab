@@ -285,7 +285,6 @@ function prog_CPY(array)
 	else if (prog_LocalVariables[name2] == null) RaiseError(`[ERROR] Couldn't CPY variable "${name2}" because it doesn't exists.`);
 	else 
 	{
-		console.log(typeof prog_LocalVariables[name])
 		switch (typeof prog_LocalVariables[name])
 		{
 			case "boolean":
