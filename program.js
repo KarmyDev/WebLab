@@ -1,6 +1,45 @@
 const mainOutput = document.getElementById('main-output');
-
 const textarea = document.getElementById('main-output');
+
+const executionStatus = {
+	Image: document.getElementById('execution-status-img'),
+	Text: document.getElementById('execution-status')
+};
+
+function updateExecutionStatus(status)
+{
+	switch(status)
+	{
+		case -1: // forced
+			executionStatus.Text.innerText = "Forced stop. ";
+			executionStatus.Text.style.color = "#cd7272";
+			executionStatus.Image.src = './res/stopped.png';
+			executionStatus.Image.className = "";
+		break;
+		
+		case 0: // not running
+			executionStatus.Text.innerText = "Not running. ";
+			executionStatus.Text.style.color = "#7277cd";
+			executionStatus.Image.src = './res/idle.png';
+			executionStatus.Image.className = "";
+		break;
+		
+		case 1: // running
+			executionStatus.Text.innerText = "Running... ";
+			executionStatus.Text.style.color = "#7277cd";
+			executionStatus.Image.src = './res/loading.png';
+			executionStatus.Image.className = "rotating";
+		break;
+		
+		case 2: // finished
+			executionStatus.Text.innerText = "Finished. ";
+			executionStatus.Text.style.color = "#81cd72";
+			executionStatus.Image.src = './res/finished.png';
+			executionStatus.Image.className = "";
+		break;
+	}
+}
+
 /*
 function KS_HelpButton() 
 {
@@ -42,6 +81,7 @@ function RaiseError(err)
 
 async function KS_RunScript()
 {
+	updateExecutionStatus(1); // running
 	RestartShell();
 	
 	let sourceCode = document.getElementById('main-input').value;
@@ -127,9 +167,9 @@ async function KS_RunScript()
 		
 	}
 	
-	// End of compilation:
+	// End of interpreting:
 	sys_UnhookInput();
-	
+	updateExecutionStatus(2); // finished 
 }
 
 let compil_currentLine = null;
@@ -147,6 +187,7 @@ function KS_ForceStop()
 	RestartShell();
 	compil_forceStop = true;
 	sys_UnhookInput();
+	updateExecutionStatus(-1); // forced stop 
 }
 
 function RestartShell()
