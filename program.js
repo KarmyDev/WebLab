@@ -233,6 +233,7 @@ function prog_CPY(array)
 	else if (prog_LocalVariables[name2] == null) RaiseError(`[ERROR] Couldn't CPY variable "${name2}" because it doesn't exists.`);
 	else 
 	{
+		console.log(typeof prog_LocalVariables[name])
 		switch (typeof prog_LocalVariables[name])
 		{
 			case "boolean":
@@ -242,8 +243,9 @@ function prog_CPY(array)
 			break;
 			
 			case "number":
-				if (!isNaN(prog_LocalVariables[name2])) prog_LocalVariables[name] = prog_LocalVariables[name2];
-				else RaiseError(`[ERROR] Couldn't CPY variable "${name2}" to "${name}" because it's value type (${typeof prog_LocalVariables[name]} =/= ${typeof prog_LocalVariables[name2]}) doesn't match.`);
+				if (!isNaN(prog_LocalVariables[name2]) && prog_LocalVariables[name2].toString() !== "") {
+					prog_LocalVariables[name] = prog_LocalVariables[name2];
+				}else RaiseError(`[ERROR] Couldn't CPY variable "${name2}" to "${name}" because it's value type (${typeof prog_LocalVariables[name]} =/= ${typeof prog_LocalVariables[name2]}) doesn't match.`);
 			break;
 			
 			case "string":
