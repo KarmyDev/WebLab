@@ -730,8 +730,12 @@ function sys_HookInput(inputKey)
 
 function sys_UnhookInput()
 {
+	try{
 	if (sys_isListenerSet) window.removeEventListener("keydown", sys_catchInputDown);
+	} catch(e) {}
+	try {
 	if (sys_isListenerSet) window.removeEventListener("keyup", sys_catchInputUp);
+	} catch (e) {}
 	
 	sys_isListenerSet = false;
 	
