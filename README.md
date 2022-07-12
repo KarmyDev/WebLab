@@ -2,7 +2,7 @@
 ## [\<Try here\>](https://karmydev.github.io/WebLab/)
 
 ### Latest update:
-Added 'flush console' with `cls` instruction
+Added 'flush console' with `clr` instruction
 <br>
 <br>[\<More about instructions here\>](https://karmydev.github.io/WebLab/help.html)
 <br>
