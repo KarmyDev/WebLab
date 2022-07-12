@@ -1,5 +1,5 @@
 # Web interpretation of KarmelScript Interpreter
-## [\<Try here\>](https://kszlagk.github.io/WebLab/)
+## [\<Try here\>](https://karmydev.github.io/WebLab/)
 
 ### Latest update:
 Added stack with `psh` and `pop` instruction
@@ -18,4 +18,4 @@ Added `get` instruction
 <br>
 <br>For example: `get rnd sys_env Random`
 <br>
-<br>[\<More about instructions here\>](https://kszlagk.github.io/WebLab/help.html)
+<br>[\<More about instructions here\>](https://karmydev.github.io/WebLab/help.html)
