@@ -10,6 +10,15 @@ function updateExecutionStatus(status)
 {
 	switch(status)
 	{
+		case -2: // preload
+			executionStatus.Image.hidden = true;
+			executionStatus.Image.src = './res/stopped.png';
+			executionStatus.Image.src = './res/loading.png';
+			executionStatus.Image.src = './res/finished.png';
+			executionStatus.Image.src = './res/idle.png';
+			executionStatus.Image.hidden = false;
+		break;
+		
 		case -1: // forced
 			executionStatus.Text.innerText = "Forced stop. ";
 			executionStatus.Text.style.color = "#cd7272";
@@ -39,6 +48,8 @@ function updateExecutionStatus(status)
 		break;
 	}
 }
+
+updateExecutionStatus(-2); // preload
 
 /*
 function KS_HelpButton() 
