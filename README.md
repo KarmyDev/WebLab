@@ -2,6 +2,12 @@
 ## [\<Try here\>](https://karmydev.github.io/WebLab/)
 
 ### Latest update:
+Added 'flush console' with `cls` instruction
+<br>
+<br>[\<More about instructions here\>](https://karmydev.github.io/WebLab/help.html)
+<br>
+<br>
+### 27.04.2022's update:
 Added stack with `psh` and `pop` instruction
 <br>Added several math instructions (`mul` - multiply, `div` - divide, `mod` - remainder)
 <br>
