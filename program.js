@@ -220,7 +220,7 @@ function RestartShell()
 		"cpy": prog_CPY, "add": prog_ADD, "sub": prog_SUB, "siz": prog_SIZ, "sin": prog_SIN, 
 		"flp": prog_FLP, "tof": prog_TOF, "len": prog_LEN, "put": prog_PUT, "cut": prog_CUT,
 		"get": prog_GET, "psh": prog_PSH, "pop": prog_POP, "mul": prog_MUL, "div": prog_DIV,
-		"mod": prog_MOD, "clr": prog_CLR,
+		"mod": prog_MOD, "clr": prog_CLR, "cst": prog_CST,
 		
 		"jmp!": prog_JMP_END, "out!": prog_OUT_NL, "siz!": prog_SIZ_NOT, "sin!": prog_SIN_NOT,
 		"end!": prog_END_EP
@@ -703,7 +703,28 @@ function prog_CLR(array)
 	FlushOutput();
 }
 
-
+function prog_CST(array)
+{
+	let name = array[1];
+	let name2 = array[2];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't CST variable "${name}" because it doesn't exists.`);
+	else if (prog_LocalVariables[name2] == null) RaiseError(`[ERROR] Couldn't CST variable "${name2}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "number":
+				if (!isNaN(prog_LocalVariables[name2])) prog_LocalVariables[name] = parseInt(prog_LocalVariables[name2]);
+				else RaiseError(`[ERROR] Couldn't CST variable "${name}" with "${name2}" because it's value type (${typeof prog_LocalVariables[name]} =/= ${typeof prog_LocalVariables[name2]}) doesn't match.`);
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't CST variable "${name}" because it's type isn't a number.`);
+			break;
+		}
+	}
+}
 
 
 
