@@ -158,6 +158,9 @@ async function KS_RunScript()
 		
 		if (compil_forceStop) 
 		{
+			try {
+			prog_WebSocket.close()
+			} catch(e) {}
 			// compil_executionLine = lines.length;
 			return;
 		}
