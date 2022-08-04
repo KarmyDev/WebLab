@@ -764,7 +764,7 @@ async function prog_WSC (array)
 					prog_WebSocket = new WebSocket(prog_LocalVariables[name2]);
 					prog_WebSocket.onopen = function() {
 						prog_WebSocket_messages = [];
-						prog_LocalVariables[name] = prog_WebSocket.readyState;
+						prog_LocalVariables[name] = prog_WebSocket != null ? prog_WebSocket.readyState : 3;
 						prog_WebSocket.onmessage = function (msg)
 						{
 							prog_WebSocket_messages.push(msg.data.toString('utf8'));
