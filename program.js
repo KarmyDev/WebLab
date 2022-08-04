@@ -190,6 +190,8 @@ let compil_defaultVariableTypes = null;
 let prog_LocalVariables = null;
 let prog_LocalJumpLabels = null;
 let prog_LocalStack = null;
+let prog_WebSocket = null;
+let prog_WebSocket_messages = null;
 
 let compil_forceStop = false;
 
@@ -209,6 +211,8 @@ function RestartShell()
 	prog_LocalJumpLabels = {};
 	prog_LocalJumpEnds = {};
 	prog_LocalStack = [];
+	prog_WebSocket = null;
+	prog_WebSocket_messages = [];
 	
 	compil_defaultVariableTypes = 
 	{
@@ -220,7 +224,9 @@ function RestartShell()
 		"cpy": prog_CPY, "add": prog_ADD, "sub": prog_SUB, "siz": prog_SIZ, "sin": prog_SIN, 
 		"flp": prog_FLP, "tof": prog_TOF, "len": prog_LEN, "put": prog_PUT, "cut": prog_CUT,
 		"get": prog_GET, "psh": prog_PSH, "pop": prog_POP, "mul": prog_MUL, "div": prog_DIV,
-		"mod": prog_MOD, "clr": prog_CLR, "cst": prog_CST,
+		"mod": prog_MOD, "clr": prog_CLR, "cst": prog_CST, "wsc": prog_WSC, "wsp": prog_WSP,
+		"wsi": prog_WSI, "wsr": prog_WSR, "wss": prog_WSS, "wse": prog_WSE,
+		
 		
 		"jmp!": prog_JMP_END, "out!": prog_OUT_NL, "siz!": prog_SIZ_NOT, "sin!": prog_SIN_NOT,
 		"end!": prog_END_EP
@@ -726,7 +732,153 @@ function prog_CST(array)
 	}
 }
 
+function prog_WSC (array)
+{
+	if (prog_WebSocket != null) 
+	{
+		RaiseError("[ERROR] Couldn't WSC because there's already one connection started.");
+		return;
+	}
+	
+	let name = array[1];
+	let name2 = array[2];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't WSC with variable "${name}" because it doesn't exists.`);
+	if (prog_LocalVariables[name2] == null) RaiseError(`[ERROR] Couldn't WSC with variable "${name2}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "number":
+				if (typeof prog_LocalVariables[name2] != "string")
+				{
+					RaiseError(`[ERROR] Couldn't WSC with variable "${name2}" because it's type isn't a string.`);
+					return;
+				}
+				prog_WebSocket = new WebSocket(prog_LocalVariables[name2]);
+				prog_WebSocket_messages = [];
+				prog_LocalVariables[name] = prog_WebSocket.readyState;
+				prog_WebSocket.onmessage = function (msg)
+				{
+					prog_WebSocket_messages.push(msg.data.toString('utf8'));
+				}
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't WSC with variable "${name}" because it's type isn't a number.`);
+			break;
+		}
+	}
+}
 
+function prog_WSE (array)
+{
+	if (prog_WebSocket == null) 
+	{
+		RaiseError("[ERROR] Couldn't WSE because there's no any connection started.");
+		return;
+	}
+	
+	prog_WebSocket.close();
+	prog_WebSocket = null;
+}
+
+function prog_WSI (array)
+{
+	let name = array[1];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't WSI with variable "${name}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "number":
+				prog_LocalVariables[name] = prog_WebSocket_messages.length;
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't WSI with variable "${name}" because it's type isn't a number.`);
+			break;
+		}
+	}
+	
+}
+
+function prog_WSR (array)
+{
+	let name = array[1];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't WSR with variable "${name}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "string":
+				let ret = prog_WebSocket_messages.pop();
+				if (ret == undefined) ret = "";
+				prog_LocalVariables[name] = ret;
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't WSR with variable "${name}" because it's type isn't a string.`);
+			break;
+		}
+	}
+	
+}
+
+function prog_WSP (array)
+{
+	if (prog_WebSocket == null) 
+	{
+		RaiseError("[ERROR] Couldn't WSP because there's no any connection started.");
+		return;
+	}
+	
+	let name = array[1];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't WSP with variable "${name}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "string":
+				prog_WebSocket.send(prog_LocalVariables[name]);
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't WSP with variable "${name}" because it's type isn't a string.`);
+			break;
+		}
+	}
+	
+}
+
+function prog_WSS (array)
+{
+	let name = array[1];
+	
+	if (prog_LocalVariables[name] == null) RaiseError(`[ERROR] Couldn't WSS with variable "${name}" because it doesn't exists.`);
+	else 
+	{
+		switch (typeof prog_LocalVariables[name])
+		{
+			case "number":
+				if (prog_WebSocket == null) 
+				{
+					prog_LocalVariables[name] = 3;
+					return;
+				}
+				prog_LocalVariables[name] = prog_WebSocket.readyState;
+			break;
+			
+			default:
+				RaiseError(`[ERROR] Couldn't WSS with variable "${name}" because it's type isn't a number.`);
+			break;
+		}
+	}
+	
+}
 
 
 
