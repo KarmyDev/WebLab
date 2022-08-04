@@ -763,20 +763,20 @@ async function prog_WSC (array)
 				{
 					prog_WebSocket = new WebSocket(prog_LocalVariables[name2]);
 					prog_WebSocket.onopen = function() {
+						prog_WebSocket_messages = [];
+						prog_LocalVariables[name] = prog_WebSocket.readyState;
+						prog_WebSocket.onmessage = function (msg)
+						{
+							prog_WebSocket_messages.push(msg.data.toString('utf8'));
+						}
 						resolve(prog_WebSocket);
 					};
 	
 					prog_WebSocket.onerror = function(err) {
+						prog_LocalVariables[name] = 3;
 						reject(err);
 					};
 				});
-				
-				prog_WebSocket_messages = [];
-				prog_LocalVariables[name] = prog_WebSocket.readyState;
-				prog_WebSocket.onmessage = function (msg)
-				{
-					prog_WebSocket_messages.push(msg.data.toString('utf8'));
-				}
 			break;
 			
 			default:
