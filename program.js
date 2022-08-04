@@ -172,7 +172,7 @@ async function KS_RunScript()
 			else
 			{
 				// RaiseError(`[WARN] Should be calling ${words[0]}`);
-				compil_scriptCommands[words[0]](words);
+				await Promise.resolve(compil_scriptCommands[words[0]](words));
 			}
 		}
 		
@@ -732,7 +732,7 @@ function prog_CST(array)
 	}
 }
 
-function prog_WSC (array)
+async function prog_WSC (array)
 {
 	if (prog_WebSocket != null) 
 	{
@@ -755,7 +755,19 @@ function prog_WSC (array)
 					RaiseError(`[ERROR] Couldn't WSC with variable "${name2}" because it's type isn't a string.`);
 					return;
 				}
-				prog_WebSocket = new WebSocket(prog_LocalVariables[name2]);
+				
+				await new Promise((resolve, reject) =>
+				{
+					prog_WebSocket = new WebSocket(prog_LocalVariables[name2]);
+					prog_WebSocket.onopen = function() {
+						resolve(prog_WebSocket);
+					};
+	
+					prog_WebSocket.onerror = function(err) {
+						reject(err);
+					};
+				});
+				
 				prog_WebSocket_messages = [];
 				prog_LocalVariables[name] = prog_WebSocket.readyState;
 				prog_WebSocket.onmessage = function (msg)
