@@ -7,8 +7,13 @@ body {
 }
 
 @font-face {
-  font-family: defaultFont;
-  src: url('fonts/OpenSans-VariableFont_wdth,wght.ttf');
+ 	font-family: defaultFont;
+ 	src: url('fonts/OpenSans-VariableFont_wdth,wght.ttf');
+}
+
+@font-face {
+	font-family: vts;
+	src: url('fonts/VTSR.TTF');
 }
 
 .w-div-centered {
@@ -117,6 +122,8 @@ h5 {
 .w-code-output {
 	height: 450px;
     width: 500px;
+	
+	font-family: vts;
 	
     resize: none;
     contain: content;
