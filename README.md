@@ -22,6 +22,6 @@ Added `get` instruction
 <br>depending if the button is pressed or not. It also allows for gathering stuff like time,
 <br>or random value.
 <br>
-<br>For example: `get rnd sys_env Random`
+<br>For example: `get rnd sys_env Random`.
 <br>
 <br>[\<More about instructions here\>](https://karmydev.github.io/WebLab/help.html)
